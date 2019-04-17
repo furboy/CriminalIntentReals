@@ -1,5 +1,6 @@
 package com.ctech.aleco.criminalintent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,11 +37,15 @@ private CrimeAdapter mAdapter;
     }
 
     private void updateUI() {
-    CrimeLab crimeLab = CrimeLab.get(getActivity());
-    List<Crime> crimes = crimeLab.getCrimes();
+        CrimeLab crimeLab = CrimeLab.get(getActivity());
+        List<Crime> crimes = crimeLab.getCrimes();
 
-    mAdapter = new CrimeAdapter(crimes);
-    mCrimeRecyclerView.setAdapter(mAdapter);
+        if (mAdapter == null) {
+            mAdapter = new CrimeAdapter(crimes);
+            mCrimeRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     private class CrimeHolder extends RecyclerView.ViewHolder
@@ -64,8 +69,8 @@ private CrimeAdapter mAdapter;
         }
         @Override
         public void onClick(View v){
-            Toast.makeText(getActivity(),mCrime.getTitle()+ " clicked!", Toast.LENGTH_SHORT).show();
-
+            Intent myIntent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
+            startActivity(myIntent);
         }
         public void bind(Crime crime) {
         mCrime = crime;
