@@ -18,7 +18,6 @@ public class CrimePagerActivity<i> extends AppCompatActivity {
     private static final String EXTRA_CRIME_ID = "com.ctech.aleco.criminalintent.crime_id";
     private ViewPager mViewPager;
     private List<Crime> mCrimes;
-    private int i = mCrimes.size();
 
     public static Intent newIntent(Context packageContext, UUID crimeId){
         Intent myIntent = new Intent(packageContext, CrimePagerActivity.class);

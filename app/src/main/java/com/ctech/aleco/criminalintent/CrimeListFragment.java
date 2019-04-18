@@ -36,6 +36,12 @@ private CrimeAdapter mAdapter;
         return myView;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateUI();
+    }
+
     private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
@@ -56,11 +62,12 @@ private CrimeAdapter mAdapter;
     private TextView mDateTextView;
     private Crime mCrime;
     private ImageView mSolvedImageView;
+    private static final String EXTRA_CRIME_ID = "com.ctech.aleco.criminalintent.crime_id";
 
 
     public CrimeHolder(LayoutInflater inflater, ViewGroup parent){
         super(inflater.inflate(R.layout.list_item_crime, parent, false));
-       mTitleTextView = itemView.findViewById(R.id.crime_title);
+        mTitleTextView = itemView.findViewById(R.id.crime_title);
         mDateTextView = itemView.findViewById(R.id.crime_date);
 
         mSolvedImageView = itemView.findViewById(R.id.crime_solved);

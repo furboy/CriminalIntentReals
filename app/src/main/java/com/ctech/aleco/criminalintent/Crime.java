@@ -2,9 +2,7 @@ package com.ctech.aleco.criminalintent;
 import java.util.Date;
 import java.util.UUID;
 public class Crime {
-    public UUID getId() {
-        return mId;
-    }
+
 
     private UUID mId;
     private String mTitle;
@@ -33,6 +31,9 @@ public class Crime {
     public Crime(){
         mId = UUID.randomUUID();
         mDate = new Date();
+    }
+    public UUID getId(){
+        return mId;
     }
 }
 
