@@ -13,12 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.List;
 import java.util.UUID;
 
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity<i> extends AppCompatActivity {
 
     private static final String EXTRA_CRIME_ID = "com.ctech.aleco.criminalintent.crime_id";
-
     private ViewPager mViewPager;
     private List<Crime> mCrimes;
+    private int i = mCrimes.size();
 
     public static Intent newIntent(Context packageContext, UUID crimeId){
         Intent myIntent = new Intent(packageContext, CrimePagerActivity.class);
@@ -31,7 +31,7 @@ public class CrimePagerActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_crime_pager);
 
-    UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+    final UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
 
     mViewPager = findViewById(R.id.crime_view_pager);
 
@@ -39,6 +39,9 @@ public class CrimePagerActivity extends AppCompatActivity {
 
     FragmentManager myFragmentManager = getSupportFragmentManager();
     mViewPager.setAdapter(new FragmentStatePagerAdapter(myFragmentManager) {
+
+
+
         @Override
         public Fragment getItem(int i) {
             Crime myCrime = mCrimes.get(i);
@@ -50,6 +53,13 @@ public class CrimePagerActivity extends AppCompatActivity {
             return mCrimes.size();
         }
     });
-}
+    for (int i = 0; mCrimes.size() > i;i++){
+        if (mCrimes.get(i).getId().equals(crimeId)){
+            mViewPager.setCurrentItem(i);
+            break;
+        }
+
+    }
+    }
 
 }
